@@ -13,21 +13,12 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
 
-    @root_validator
-    def get_database_url(cls, v: List) -> List:
-        """
-        Путь к базе данных
-        :param v:
-        :return:
-        """
-        v['DATABASE_URL'] = f"postgresql+asyncpg://{v['DB_USER']}:{v['DB_PASS']}@{v['DB_HOST']}:{v['DB_PORT']}/{v['DB_NAME']}"
-        return v
-
     class Config:
         """
         Путь к файлу со скрытыми данными для подключения и тестирование бд
         """
-        env_file = '.env'
+        env_file = 'app/.env'
+        orm_mode = True
 
 
 settings = Settings()

@@ -2,19 +2,9 @@ from fastapi import FastAPI, Query
 from typing import Optional
 from datetime import date
 
+from app.contractors.router import router as router_contractors
+
 app = FastAPI()
 
-@app.get('/hotels')
-def get_hotels(location: str,
-               date_from: date,
-               date_to: date,
-               stars: Optional[int] = Query(None, ge=1, le=5),
-               has_spa: Optional[bool] = None
-               ):
-    return date_from, date_to
+app.include_router(router_contractors)
 
-
-# Press the green button in the gutter to run the script.
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
